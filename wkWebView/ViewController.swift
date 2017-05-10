@@ -7,12 +7,28 @@
 //
 
 import UIKit
+//1.WebKit Frameworkをimportする
+import WebKit
 
-class ViewController: UIViewController {
 
+class ViewController: UIViewController, WKUIDelegate {
+    
+    //2.WKWebviewの宣言！
+    private var webView: WKWebView!
+    
+    override func loadView() {
+        let webConfiguration = WKWebViewConfiguration()
+        webView = WKWebView(frame: .zero, configuration: webConfiguration)
+        webView.UIDelegate  = self
+        view = webView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        let myURL = NSURL(string: "https://www.compathy.net/magazine/2017/04/26/houtoenjoy_singapore_library/")
+        let myRequest = NSURLRequest(URL: myURL!)
+        webView.loadRequest(myRequest)
     }
 
     override func didReceiveMemoryWarning() {
